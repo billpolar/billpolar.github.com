@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bill Polar chromeDrag</title>
+<style>
+*{margin:0;padding:0;list-style:none;}
+#ul1{ position:relative;width:700px; margin:50px auto; }
+#ul1 li{float:left;width:160px; height:160px; margin:30px;box-shadow: 6px 6px 3px #888;border-radius: 6px;}
+#ul1 li img{border-radius: 8px;}
+</style>
+<script src="JavaScript/move.js"></script>
+<script>
+window.onload = function(){
+	var oUl = document.getElementById("ul1");
+	var aLi = oUl.children;
+	var len = aLi.length;
+	var zIndex = 1;
+	
+	//布局转换
+	var aPos = [];
+	for(var i = 0; i < len; i++){
+		aPos[i] = {left:aLi[i].offsetLeft,top:aLi[i].offsetTop};
+		aLi[i].style.left = aPos[i].left + "px";
+		aLi[i].style.top = aPos[i].top + "px";		
+	}
+	
+	for(var i = 0; i < len; i++){
+		aLi[i].style.position = "absolute";
+		aLi[i].style.margin = "0";
+		aLi[i].index = i;
+		drag(aLi[i]);	
+	}
+	function drag(obj){
+		obj.onmousedown = function(ev){
+			var oEvent = ev || event;
+			var disX = oEvent.clientX - obj.offsetLeft;
+			var disY = oEvent.clientY - obj.offsetTop;
+			
+			clearInterval(obj.timer);
+			obj.style.zIndex = zIndex++;
+			
+			document.onmousemove = function(ev){
+				var oEvent = ev || event;
+				obj.style.left = oEvent.clientX - disX + "px";
+				obj.style.top  = oEvent.clientY - disY + "px";
+			 	
+				//交换位置
+				var oNear = findNearest(obj);
+				if(oNear && oNear!=obj){
+					/*
+						n = obj.index
+						m = oNear.index
+						
+						n < m: [n+1,m] zIndex--
+						n > m: [m,n-1] zIndex++
+					*/
+var n = obj.index;
+var m = oNear.index;
+if(n < m){//--
+	for(var i = 0; i < len; i++){
+		if(aLi[i].index >= n+1 && aLi[i].index <= m){
+			aLi[i].index--;
+			move(aLi[i],aPos[aLi[i].index]);
+		}
+	}
+} else if(n > m){//++
+	for(var i = 0; i < len; i++){
+		if(aLi[i].index >= m && aLi[i].index <= n-1){
+			aLi[i].index++;
+			move(aLi[i],aPos[aLi[i].index]);
+		}
+	}
+}				
+//n --> m
+obj.index = m;				
+					
+				}
+				
+				
+			};
+			document.onmouseup = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+				obj.releaseCapture && obj.releaseCapture();
+				
+				move(obj,aPos[obj.index]);
+			};	
+			obj.setCapture && obj.setCapture();
+			return false;
+		};
+	}
+
+	//算距离
+	function getDis(obj1,obj2){
+		var a = obj1.offsetLeft - aPos[obj2.index].left;
+		var b = obj1.offsetTop - aPos[obj2.index].top;
+		
+		return Math.sqrt(a*a + b*b);	
+	}
+	
+	//找最小值
+	//1 碰撞  2 算计距离 3 找最小值  4返回
+	function findNearest(obj){
+		var iMin = 9999999;
+		var iMinIndex = -1;
+		for(var i = 0; i < len; i++){
+			//if(obj == aLi[i]) continue;
+			//1 碰撞
+			if(collTest(obj,aLi[i])){
+				// 2 算计距离 
+				var dis = getDis(obj,aLi[i]);
+				// 3 找最小值
+				if(iMin > dis){
+					iMin = dis;
+					iMinIndex = i;
+				}				
+			}
+		}
+		//4返回
+		if(iMinIndex == -1){
+			return null;
+		}
+		return aLi[iMinIndex];
+	}
+	
+	function collTest(obj1,obj2){
+		var l1 = obj1.offsetLeft;
+		var t1 = obj1.offsetTop;
+		var r1 = l1 + obj1.offsetWidth;
+		var b1 = t1 + obj1.offsetHeight;
+		
+		var l2 = aPos[obj2.index].left;
+		var t2 = aPos[obj2.index].top;
+		var r2 = l2 + obj2.offsetWidth;
+		var b2 = t2 + obj2.offsetHeight;
+		
+		if(r1 < l2 || b1 < t2 || l1 > r2 || t1 > b2){
+			return false;
+		} else {
+			return true;	
+		}	
+	}
+ 
+};
+
+</script>
+</head>
+
+<body>
+<ul id="ul1">
+	<li><img src="imges/chromeDragimgs_photowall/01.jpg" alt="01"></li>
+	<li><img src="imges/chromeDragimgs_photowall/02.jpg" alt="02"></li>
+	<li><img src="imges/chromeDragimgs_photowall/03.jpg" alt="03"></li>
+	<li><img src="imges/chromeDragimgs_photowall/04.jpg" alt="04"></li>
+	<li><img src="imges/chromeDragimgs_photowall/06.jpg" alt="08"></li>
+	<li><img src="imges/chromeDragimgs_photowall/05.jpg" alt="05"></li>
+	<li><img src="imges/chromeDragimgs_photowall/07.jpg" alt="06"></li>
+	<li><img src="imges/chromeDragimgs_photowall/08.jpg" alt="07"></li>
+	<li><img src="imges/chromeDragimgs_photowall/09.jpg" alt="01"></li>
+</ul>
+</body>
+</html>
