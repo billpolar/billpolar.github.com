@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+	<style>
+	body{background: #000;}
+	#c1{background: #fff;}
+	</style>
+	<script>
+		
+		window.onload = function(){
+			var oC = document.getElementById("c1");
+			var gd = oC.getContext("2d");
+			var str = "哈哈哈哈";
+			var h = 60;
+			gd.fillStyle = "red";
+			gd.font = h+"px songti";
+			var w = gd.measureText(str).width;
+
+			gd.fillText(str,0,h);
+			gd.fillText(str,(oC.width-w)/2,h);
+			gd.fillText(str,(oC.width-w),h);
+			gd.fillText(str,0,oC.height/2+h/2);
+			gd.fillText(str,(oC.width-w)/2,oC.height/2+h/2);
+			gd.fillText(str,(oC.width-w),oC.height/2+h/2);
+			gd.fillText(str,0,oC.height);
+			gd.fillText(str,(oC.width-w)/2,oC.height);
+			gd.fillText(str,(oC.width-w),oC.height);
+
+
+
+
+
+
+		};
+	</script>
+</head>
+<body>
+	<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
