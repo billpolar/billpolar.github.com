@@ -1,7 +1,5 @@
 window.onload = function() {
   toBanner();
-
-
 }
 
 function toBanner() {
@@ -11,7 +9,7 @@ function toBanner() {
   var aBtn = oBan.children[2].children;
   var oUl = oBan.children[3];
   var aLi = oUl.children;
-  var timer = setInterval(next, 4000);
+  var timer = setInterval(next, 3000);
 
   oUl.appendChild(aLi[0].cloneNode(true));
 
@@ -34,14 +32,16 @@ function toBanner() {
     iNow--;
     if (iNow == -1) {
       oUl.style.left = -aLi[0].offsetWidth * aLi.length + "px";
-      iNow = 1;
+      iNow = aLi.length-1;
     }
     tab();
   };
 
   oNext.onclick = function() {
-
-    next();
+  	if(!bReady) return;
+  	bReady = false;
+  	iNow++;
+  	tab();
   };
 
   function next() {
@@ -62,7 +62,7 @@ function toBanner() {
   oBan.onmouseout = function() {
     oPrev.style.display = "none";
     oNext.style.display = "none";
-    timer = setInterval(next, 4000);
+    timer = setInterval(next, 3000);
   };
 
 

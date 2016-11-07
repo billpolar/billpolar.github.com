@@ -1,0 +1,176 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>瀑布流</title>
+	<style>
+		body{margin: 0;padding: 0;position: relative;}
+		
+		#s{ width:1080px; height: 100px; overflow:hidden;position: absolute;left: 50%; margin-left: -540px;top: -50px;}
+		#s div{ width:2160px;}
+		#s #i span{ width:1080px; display:block; float:left;}
+		
+		ul,li{margin: 0;padding: 0;list-style: none;}
+		#ul1{width: 1080px;margin: 100px auto 0;}
+		#ul1 li{width:247px;float: left;margin-left: 16px;}
+		li div{border: 1px solid #ccc;padding: 10px; margin-bottom: 20px;width: 232px;overflow:hidden; }
+		#ul li div img{
+			width: 232px;display: block;
+		}
+		#ul li div p{
+			width: 232px;
+			overflow:hidden; 
+		}
+	</style>
+
+	<script src="ajax.js"></script>
+	<script>
+		window.onload = function(){
+			
+			var oUl = document.getElementById('ul1');
+			var aLi = oUl.getElementsByTagName('li');
+			var iLen = aLi.length;
+			var iPage = 1;
+			var flag = true;
+			
+			//字幕滚动效果
+			var speed = 20;
+			var s = document.getElementById("s");
+			var i = document.getElementById("i");
+			var t = i.getElementsByTagName("span")[0];
+			i.appendChild(t.cloneNode(true));
+			
+			function scroll(){
+			     s.scrollLeft += 1;
+			     if(s.scrollLeft >= t.offsetWidth) s.scrollLeft = 0;
+			}
+			
+			window.setInterval(scroll,speed);
+			
+			//初始化数据处理
+			getList ();
+			function getList () {
+				ajax('get','getPics2.php','cpage='+iPage,function(data){
+					var data = JSON.parse(data);
+					
+					if(!data.length){
+						//没有数据
+						return;
+					}
+					
+					
+					for (var i = 0; i<data.length;i++) {
+						
+						//获取高度最短的li
+						var _index = getShort();
+						
+						var oDiv = document.createElement('div');
+						var oImg = document.createElement('img');
+						oImg.style.width = '232px';
+						oImg.style.height = data[i].height * (232/data[i].width)+'px';
+						oImg.src = data[i].preview;
+						oDiv.appendChild(oImg);
+						var oP = document.createElement('p');
+						oP.innerHTML = data[i].title;
+						oDiv.appendChild(oP);
+						
+						aLi[_index].appendChild(oDiv);
+						
+					}
+					flag = true;
+				});
+			}
+			
+			//瀑布流实时加载新的数据
+			window.onscroll = function(){
+				var _index = getShort();
+				var oLi = aLi[_index];
+				
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				
+				if ( getTop(oLi)+oLi.offsetHeight < document.documentElement.clientHeight+scrollTop) {
+					if(flag){
+						flag = false;
+						iPage++;
+						getList();
+					}
+				}
+			};
+			
+			function getTop(obj){
+				var iTop = 0;
+				while(obj){
+					iTop +=obj.offsetTop;
+					obj = obj.offsetParent;
+				}
+				return iTop;
+			}
+			
+			
+			function getShort(){
+				var index = 0;
+				var ih = aLi[index].offsetHeight;
+				for(var i=1;i<iLen;i++){
+					if (aLi[i].offsetHeight < ih ) {
+						index = i;
+						ih = aLi[i].offsetHeight;
+					}
+				}
+				return index;
+			};
+		};
+	</script>
+</head>
+<body>
+	<div id="s">
+		<div id="i">
+			<span>由于ajax运行在服务器环境下，github无法看出效果，可以下载后开启服务器查看或者直接看源码</span>
+		</div>
+	</div>
+	<ul id="ul1">
+		<!--<li>
+			<div>
+				<img src="http://img.hb.aicdn.com/b5f3377992c543fab7747c84bd56923087795aa9f059e-NhzBaP_fw658" style="width: 278px;"/>
+				<p>※ ｛极目霁霭霏微，暝鸦零乱，萧索江城暮。南楼画角，又送残阳去。｝
+	出镜：任慧是仙女 摄影&后期：名残枫雪 老师：知竹zZ 抄送：汉服摄影 汉服写真集 #汉服# #汉服写真#</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="http://img.hb.aicdn.com/b5f3377992c543fab7747c84bd56923087795aa9f059e-NhzBaP_fw658" style="width: 278px;"/>
+				<p>※ ｛极目霁霭霏微，暝鸦零乱，萧索江城暮。南楼画角，又送残阳去。｝
+	出镜：任慧是仙女 摄影&后期：名残枫雪 老师：知竹zZ 抄送：汉服摄影 汉服写真集 #汉服# #汉服写真#</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="http://img.hb.aicdn.com/b5f3377992c543fab7747c84bd56923087795aa9f059e-NhzBaP_fw658" style="width: 278px;"/>
+				<p>※ ｛极目霁霭霏微，暝鸦零乱，萧索江城暮。南楼画角，又送残阳去。｝
+	出镜：任慧是仙女 摄影&后期：名残枫雪 老师：知竹zZ 抄送：汉服摄影 汉服写真集 #汉服# #汉服写真#</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="http://img.hb.aicdn.com/b5f3377992c543fab7747c84bd56923087795aa9f059e-NhzBaP_fw658" style="width: 278px;"/ >
+				<p>※ ｛极目霁霭霏微，暝鸦零乱，萧索江城暮。南楼画角，又送残阳去。｝
+	出镜：任慧是仙女 摄影&后期：名残枫雪 老师：知竹zZ 抄送：汉服摄影 汉服写真集 #汉服# #汉服写真#</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="http://img.hb.aicdn.com/c15e761c2ae8924abccba36bb1cac4f72ffbd1ae4418f-wyq18Z_fw658" style="width: 278px;"/ >
+				<p>随遇而安无不可
+人间处处有真情</p>
+			</div>
+		</li>
+		-->
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

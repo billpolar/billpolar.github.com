@@ -2,16 +2,16 @@ body,ul,ol,p,h1,h2,h3,h4,dl,dd,form,input,textarea,select { margin:0; padding:0;
   li{list-style:none}
   img{ border:none; vertical-align:top;}
   a{ text-decoration:none;}
-  body{background: #101010;width: 100%;}
+  body{background: #101010;width: 100%;font-family:"Times New Roman",Georgia,Serif;}
   #main{width: 960px;margin:0 auto;}
 
   #header{position: relative;top: 0;left: 0; height: 80px;width: 960px;}
   #header h1{float:left; margin-top: 16px; color: #e6e686;line-height: 60px;font-size: 40px;font-weight: normal;}
   #header h1 span{font-size: 56px;}
-  #head_list{position: absolute;left:370px;top:16px; font-size: 20px;width: 100%;line-height: 90px; overflow: hidden;}
-  #head_list li {float: left; margin-left: 66px;}
-  #head_list li a{color: #fff;}
-  #head_list li a:hover{text-decoration: underline;color: #e6e686;}
+  #head_list{position: absolute;left:338px;top:36px; font-size:15px;width: 660px; overflow: hidden;}
+  #head_list li {float: left;}
+  #head_list li a{color: #fff;display: inline-block;line-height: 36px;padding:0 10px;}
+  #head_list li a:hover{color: #e6e686;background-color:#555555 ;}
 
   #banner { width: 960px; height: 600px; overflow:hidden; position: relative; margin: 0 auto;}
   #banner ol { position: absolute; left: 48%; bottom: 5px; z-index: 2; }
