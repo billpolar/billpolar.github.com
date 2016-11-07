@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="imges/001.ico">
+<title>Polar bill pageturning</title>
+<style>
+html{ overflow:hidden;}
+#div1{ position:relative;width:700px; height:400px; background:url(page_turningIMG/0.jpg) no-repeat;  margin:100px auto; line-height:400px; text-align:center; font-size:50px; color:#fff;}
+#div1 .page2{ position:absolute;right:0;top:0;width:50%; height:100%; background:url(page_turningIMG/1.jpg) no-repeat right center; z-index:1;}
+#div1 .page{ position:absolute;right:0;top:0;width:50%; height:100%; background:#666; z-index:2;
+	transform:perspective(800px) rotateY(0deg);
+	transform-origin:left center;
+	transform-style:preserve-3d;
+}
+#div1 .page div{ position:absolute;left:0;top:0;width:100%; height:100%;}
+#div1 .page .front{background:url(page_turningIMG/0.jpg) no-repeat right center; z-index:5; transform: translateZ(1px);}
+#div1 .page .back{background:url(page_turningIMG/1.jpg) no-repeat; z-index:1;transform: scale(-1,1) translateZ(-1px);}
+
+
+</style>
+<script>
+window.onload = function(){
+	var oDiv = document.getElementById("div1");
+	var oPage  = oDiv.querySelector(".page");
+	var oFront = oDiv.querySelector(".front");
+	var oBack  = oDiv.querySelector(".back");
+	var oPage2 = oDiv.querySelector(".page2");
+	
+	var iNow = 0;
+	oDiv.onclick = function(){
+		iNow++;
+		//点击的时候才有运动
+		oPage.style.transition = "1s all ease";
+		oPage.style.transform = "perspective(800px) rotateY(-180deg)";	
+	};
+	
+	oPage.addEventListener("transitionend",function(){
+		oPage.style.transition = "none";
+		oPage.style.transform = "perspective(800px) rotateY(0deg)";
+		
+		oDiv.style.backgroundImage = "url(page_turningIMG/"+iNow%4+".jpg)";
+		oFront.style.backgroundImage = "url(page_turningIMG/"+iNow%4+".jpg)";
+		oBack.style.backgroundImage = "url(page_turningIMG/"+(iNow+1)%4+".jpg)";
+		oPage2.style.backgroundImage = "url(page_turningIMG/"+(iNow+1)%4+".jpg)";
+		
+	},false);
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<div class="page">
+    	<div class="front"></div>
+    	<div class="back"></div>
+    </div>
+    <div class="page2"></div>
+</div>
+</body>
+</html>

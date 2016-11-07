@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="imges/001.ico">
+<title>Polar bill H5 effect</title>
+<style>
+*{margin:0;padding:0;list-style:none;}
+html{ overflow:hidden;}
+body{ background:#000;}
+#ul1{position:relative;width:133px; height:200px; margin:150px auto; background:none;
+	transform-style:preserve-3d;
+	transform:perspective(800px) rotateX(-15deg) rotateY(0deg); 
+}
+#ul1 li{ position:absolute;left:0;top:0;width:100%; height:100%;
+	transition:1s all ease;
+	transform:rotateY(0deg) translateZ(0px);
+	border-radius:10px; overflow:hidden; box-shadow:0 0 10px 2px #fff;
+	-webkit-box-reflect:below 10px -webkit-linear-gradient(rgba(0,0,0,0) 40% ,rgba(0,0,0,0.5) );
+}
+#ul1 li img{width:100%;} 
+</style>
+<script>
+window.onload = function(){
+	var oUl = document.getElementById("ul1");
+	var aLi = oUl.children;
+	var len = aLi.length;
+	var bLeft = bTop = bRight = bBottom = false;
+	
+	//d = 360/len*index;
+	for(var i = 0; i < len; i++){
+		aLi[i].style.transition = "1s all ease " + (len-i)*200 + "ms";
+		var d = 360/len*i;
+		aLi[i].style.transform = "rotateY("+d+"deg) translateZ(350px)"; 
+		aLi[i].addEventListener("transitionend",function(){
+			FousImg();
+		},false);	
+	}
+	//关灯
+	function FousImg(){
+		for (var i = 0; i < len; i++) {
+			
+			aLi[i].style.transition = "1s all ease";
+			var d =(360/len*i+y/10)%360;
+			if(d > 180){
+				d = 360 - d;
+			}
+			d =Math.abs(180 - d);
+			var scale = d/180;
+			scale < 0.3 && (scale = 0.3);
+			aLi[i].style.opacity = scale;	
+		}		
+	}
+	
+	
+	 
+	var y = 0;//y轴角度
+	var x = 150;//x轴角度
+	
+	//甩
+	var speedX = 0;
+	var speedY = 0;
+	var lastX = 0;
+	var lastY = 0;
+	var count = 0;
+	
+	var timer = null;
+	
+	document.onmousedown = function(ev){ 
+		clearInterval(timer);
+	 	var disX = ev.clientX - y;
+		var disY = ev.clientY - x;
+		document.onmousemove = function(ev){ 
+		 
+		 	y = ev.clientX - disX;
+			x = ev.clientY - disY;
+			
+			//限定范围
+			if(x > 600){
+				x = 600;
+			} else if(x < -600){
+				x = -600;
+			}
+			
+		 	oUl.style.transform = "perspective(800px) rotateX("+-x/10+"deg) rotateY("+y/10+"deg)";
+			
+			//算速度
+			speedX = x - lastX;
+			speedY = y - lastY;
+
+			lastX = x;
+			lastY = y;
+			 
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null; 
+			clearInterval(timer);
+			timer = setInterval(function(){
+				
+				x += speedX;
+				y += speedY;
+				
+				speedX *= 0.95;
+				speedY *= 0.95;
+				
+				if(Math.abs(speedX)<1){
+					speedX = 0;
+				}
+				if(Math.abs(speedY)<1){
+					speedY = 0;
+				}
+				
+				if(speedX == 0 && speedY == 0){
+					clearInterval(timer);
+				}
+				
+				//限定范围
+				if(x > 600){
+					x = 600;
+				} else if(x < -600){
+					x = -600;
+				}
+				FousImg();
+
+				oUl.style.transform = "perspective(800px) rotateX("+-x/10+"deg) rotateY("+y/10+"deg)";
+				
+			},30);
+		};	 
+		return false;
+	};
+	
+	
+ 
+};
+</script>
+</head>
+
+<body>
+<ul id="ul1">
+	<li><img src="imges/H5imgs/1.png"/></li>
+	<li><img src="imges/H5imgs/2.png"/></li>
+	<li><img src="imges/H5imgs/3.png"/></li>
+	<li><img src="imges/H5imgs/4.png"/></li>
+	<li><img src="imges/H5imgs/5.png"/></li>
+	<li><img src="imges/H5imgs/6.png"/></li>
+	<li><img src="imges/H5imgs/7.png"/></li>
+	<li><img src="imges/H5imgs/8.png"/></li>
+	<li><img src="imges/H5imgs/9.png"/></li>
+	<li><img src="imges/H5imgs/10.png"/></li>
+	<li><img src="imges/H5imgs/11.png"/></li>
+	<li><img src="imges/H5imgs/12.png"/></li>
+
+</ul>
+</body>
+</html>
