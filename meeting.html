@@ -1,0 +1,458 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>微型会议系统</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		li{list-style: none;}
+		body{position: relative;}
+		.clearfix:after{content: "";display: block;clear: both;}
+		.clearfix{zoom: 1;}
+		.writeText{width: 300px;min-height: 30px;border: 1px solid #333;border-radius: 5px;float: left;}
+		.writeText span{float: left;position: relative;line-height: 30px;margin: 0 16px;cursor: default;}
+		.writeText em{width: 13px;height: 13px;background: url(img/delete.png) no-repeat;position: absolute;right: -18px;top: 0;cursor: pointer;}
+		label{float: left;line-height: 30px;}
+		.btn{width: 50px;height: 30px;cursor: pointer;display: inline-block;margin-left: 10px;}
+		.set{margin-bottom: 20px;position: relative;}
+		.popupMenu{width: 200px;max-height: 400px;border: 1px solid #000;position: absolute;left: 410px;top: 0; background: white;z-index: 100;overflow-x: hidden;display: none;}
+		.popupMenu ul{width: 200px;}
+		.popupMenu ul li{padding: 5px;cursor: pointer;}
+		.popupMenu ul span.cur{background: #06f;color: white;}
+		.popupMenu ul span:hover{background: #06f;color: white;}
+		#div1{width: 500px;position: absolute;left: 50%;top: 200px;margin-left: -250px;}
+		
+		
+	</style>
+	<script src="jquery.min.js"></script>
+	<script>
+		$(function(){
+			
+			
+			function popup(id,type,data){
+				var $popup = $('#popup_'+id);
+				var $main = $('#main_'+id);
+				var $remove = $('#remove_'+id);
+				var $custom = $('#custom_'+id);
+				
+				bindAddBtn();
+				bindRemoveBtn();
+				textRemoveBtn();
+				
+				if(type == 2){
+					textDrag();
+				}
+				
+				$(document).off().on('click',function(){
+					closePopup();
+				});
+				
+				//阻止冒泡
+				$('#custom_'+id).on('click',function(){
+					return false;
+				});
+				
+				//点击添加弹出内容框
+				function bindAddBtn(){
+					$('#add_'+id).on('click',function(){
+						closePopup();
+						if(type == 1){
+							createRadio();
+							
+						}else if(type == 2 ){
+							createMore();
+						}
+						
+						$popup.show();
+						moveVisible();
+					})
+				};
+				
+				//初始添加数据列表
+				function setInitData(){
+					var $ul = $('<ul>');
+					$.each(data,function(){
+						var $li = $('<li><span>'+ this.name + '</span></li>');
+						$ul.append($li);
+					});
+					$popup.append($ul);
+				};
+				
+				//关闭内容框
+				function closePopup(){
+					$('.popupMenu').hide();
+				};
+				
+				//按钮取消输入框内容
+				function textRemoveBtn(){
+					$main.delegate('em','click',function(){
+						var This = this;
+						var $span = $(this).parent();
+						$span.remove();
+						
+						$popup.find('li').each(function(){
+							if($(this).index() == $span.attr('nowindex')){
+								$(this).find('span').attr('class','');
+							}
+						});
+						return false;
+					});
+				};
+				
+				//清空按钮操作
+				function bindRemoveBtn(){
+					$remove.on('click',function(){
+						$main.find('em').trigger('click');
+					})
+				};
+				
+				//内容框运动到可视区
+				function moveVisible(){
+					$popup.css('top',0);
+					var popupVal = $popup.offset().top + $popup.outerHeight();
+					var veiwVal = $(window).height() + $(document).scrollTop();
+					
+					if(popupVal>veiwVal){
+						$popup.animate({
+							top:-(popupVal-veiwVal)+'px'
+						})
+					}
+				};
+				
+				//创建内容框单选
+				function createRadio(){
+					if (!$popup.find('ul').length) {
+						setInitData();
+						bindRadio();
+					}
+					
+				};
+				
+				//创建内容框多选
+				function createMore(){
+					if (!$popup.find('ul').length) {
+						setInitData();
+						setAllCus();
+						bindMore();
+					}
+				};
+				
+				//单选操作
+				function bindRadio(){
+					var $span = $popup.find('span');
+					$span.on('click',function(){
+						if($(this).attr('class') != 'cur'){
+							$span.attr('class','');
+							$(this).attr('class','cur');
+							textRadio.add($(this).html(),$(this).parent().index());
+						}else{
+							$(this).attr('class','');
+							textRadio.remove();
+						}
+					})	
+				};
+				
+				//多选操作
+				function bindMore(){
+					var $span = $popup.find('span');
+					$span.on('click',function(){
+						if($(this).attr('class') != 'cur'){
+							$(this).attr('class','cur');
+							textMore.add($(this).html(),$(this).parent().index());
+						}else{
+							$(this).attr('class','');
+							textMore.remove($(this).parent().index());
+						}
+					})
+				};
+				
+				//单选输入操作
+				var textRadio = (function(){
+					function add(text,index){
+						var strSpan = '<span nowindex="'+index+'">'+text+'<em></em></span>';
+						$main.html(strSpan);
+					};
+					function remove(){
+						$main.empty();
+					};
+					return {
+						add :add ,
+						remove : remove
+					}
+				})();
+				
+				//多选输入操作
+				var textMore = (function(){
+					function add(text,index){
+						var $span = $('<span nowindex="'+index+'">'+text+'<em></em></span>');
+						$main.append($span);
+					};
+					function remove(index){
+						$main.find('span').each(function(){
+							if($(this).attr('nowindex') == index){
+								$(this).remove();
+							}
+						})
+					};
+					return {
+						add :add ,
+						remove : remove
+					}
+				})();
+				
+				
+				//设置全选功能
+				function setAllCus(){
+					var $allCus = $("<div><a href='javascript:;'>全选</a></div>")
+					$popup.prepend($allCus);
+					$allCus.on('click',function(){
+						
+						$popup.find('span').each(function(){
+							if ($(this).attr('class') != 'cur') {
+								$(this).trigger('click');
+							}
+						})
+					})
+				};
+				
+				//拖拽排序
+				function textDrag(){
+					
+					$main.delegate('span','mouseover',function(){
+						if (!$(this).siblings().length) {
+							$(this).css('cursor','default');
+						} else{
+							$(this).css('cursor','move');
+						}
+					});
+					
+					$main.delegate('span','mousedown',function (ev) {
+						var This = this;
+						var cloneSpan = $(this).clone();
+						$(this).css('opacity',0.3);
+						cloneSpan.css({'position': 'absolute',left:ev.pageX+16,top:ev.pageY+16});
+						$('body').append(cloneSpan);
+						
+						var $curText = toCursor.add($(this));
+						
+						$(document).on('mousemove.drag',function(ev){
+							cloneSpan.css({
+								left:ev.pageX+16,
+								top :ev.pageY+16
+							});
+							var $span = findClosest({
+								x: ev.pageX,
+								y: ev.pageY
+							});
+							var centerVal = $span.offset().left + $span.width()/2;
+							if (centerVal>ev.pageX) {
+								$curText.css({
+									left:$span.offset().left,
+									top:$span.offset().top+5
+								});
+							}else{
+								$curText.css({
+									left:$span.offset().left + $span.outerWidth() ,
+									top:$span.offset().top+5
+								});
+							}
+						});
+						
+						$(document).on('mouseup.drag',function(ev){
+							
+							$(document).off('.drag');
+							var $span = findClosest({
+								x: ev.pageX,
+								y: ev.pageY
+							});
+							var centerVal = $span.offset().left + $span.width()/2;
+							if (centerVal>ev.pageX) {
+								$(This).insertBefore($span);
+							}else{
+								$(This).insertAfter($span);
+							}
+							$(This).css('opacity',1);
+							cloneSpan.remove();
+							toCursor.remove();
+						});
+						return false;
+					})
+					
+					function findClosest(page){
+						var arrY = nearY(page.y);
+						
+						return nearX( arrY , page.x);
+					}
+					//最近的一行
+					function nearY(y) {
+						var arrY = [];
+						var minVal = 99999;
+						var minY = 0;
+						
+						$main.find('span').each(function () {
+							var num = Math.abs( $(this).offset().top + $(this).height()/2 - y );
+							if ( num < minVal ) {
+								minVal = num;
+								minY = $(this).offset().top;
+							}
+						});
+						$main.find('span').each(function () {
+							if ($(this).offset().top == minY ) {
+								arrY.push($(this));
+							}
+						});
+						return arrY;
+					}
+					//一行中最近的一个
+					function nearX (arr,x) {
+						var minVal = 99999;
+						var $closestSpan = null;
+						
+						$.each(arr,function () {
+							var num = Math.abs( $(this).offset().left + $(this).width()/2 - x );
+							if ( num < minVal ) {
+								minVal = num;
+								$closestSpan = $(this);
+							}
+						});
+						return $closestSpan;
+					}
+					//创建光标
+					var toCursor = (function () {
+						var $curText = null;
+						function add($span) {
+							$curText = $('<span>|</span>');
+							$curText.css({
+								'position':'absolute',
+								left:$span.offset().left,
+								top:$span.offset().top+5
+							});
+							$('body').append($curText);
+							return $curText;
+						}
+						function remove() {
+							$curText.css('display','none');
+						}
+						return {
+							add : add,
+							remove :remove
+						}
+					})();
+				};
+			
+			}
+			
+			
+			
+			
+			popup('1000',1,[
+				{name:'一楼会议室'},
+				{name:'二楼会议室'},
+				{name:'三楼会议室'},
+				{name:'四楼会议室'}	
+			]);
+			popup('2000',1,[
+				{name:'8:00~10:00'},
+				{name:'12:00~14:00'},
+				{name:'14:00~16:00'},
+				{name:'19:00~21:00'}	
+			]);
+			popup('3000',2,[
+				{name:'张总'},
+				{name:'李总'},
+				{name:'王总'},
+				{name:'张总2'},
+				{name:'李总2'},
+				{name:'王总2'},
+				{name:'张总3'},
+				{name:'李总3'},
+				{name:'王总3'},
+				{name:'张总4'},
+				{name:'李总5'},
+				{name:'王总5'},
+				{name:'张总6'},
+				{name:'李总7'},
+				{name:'王总8'},
+				{name:'李总9'}	
+			]);
+			popup('4000',2,[
+				{name:'服务部1'},
+				{name:'法务部1'},
+				{name:'策划部1'},
+				{name:'服务部2'},
+				{name:'法务部2'},
+				{name:'策划部2'},
+				{name:'服务部3'},
+				{name:'法务部3'},
+				{name:'策划部3'},
+				{name:'人事部1'}	
+			]);
+		});
+
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="custom_1000" class="set">
+			<label>地点：</label><div id="main_1000" class="writeText">
+				<!--<span>公安厅<em></em></span>
+				<span>公安厅ll<em></em></span>
+				<span>公安厅sss<em></em></span>
+				<span>公安厅qqq<em></em></span>-->
+			</div>
+			<input type="button" id="add_1000" value="添加" class="btn" />
+			<input type="button" id="remove_1000" value="清除" class="btn" />
+			<div id="popup_1000" class="popupMenu clearfix">
+				<!--<ul>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span class="cur">国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span class="cur">国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span class="cur">国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+					<li><span>国防部</span></li>
+				</ul>-->
+			</div>
+			<br clear="all" />
+		</div>
+		<div id="custom_2000" class="set">
+			<label>时间：</label><div id="main_2000" class="writeText">
+				
+			</div>
+			<input type="button" id="add_2000" value="添加" class="btn" />
+			<input type="button" id="remove_2000" value="清除" class="btn" />
+			<div id="popup_2000" class="popupMenu clearfix"></div>
+			<br clear="all" />
+			
+		</div>
+		<div id="custom_3000" class="set">
+			<label>领导：</label><div id="main_3000" class="writeText">
+				
+			</div>
+			<input type="button" id="add_3000" value="添加" class="btn" />
+			<input type="button" id="remove_3000" value="清除" class="btn" />
+			<div id="popup_3000" class="popupMenu clearfix"></div>
+			<br clear="all" />
+			
+		</div>
+		<div id="custom_4000" class="set">
+			<label>部门：</label><div id="main_4000" class="writeText">
+				
+			</div>
+			<input type="button" id="add_4000" value="添加" class="btn" />
+			<input type="button" id="remove_4000" value="清除" class="btn" />
+			<div id="popup_4000" class="popupMenu clearfix"></div>
+			<br clear="all" />
+			
+		</div>
+	</div>
+</body>
+</html>

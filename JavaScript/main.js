@@ -9,7 +9,8 @@ function toBanner() {
   var aBtn = oBan.children[2].children;
   var oUl = oBan.children[3];
   var aLi = oUl.children;
-  var timer = setInterval(next, 3000);
+  var timer = null;
+  timer = setInterval(next, 3000);
 
   oUl.appendChild(aLi[0].cloneNode(true));
 
@@ -31,8 +32,8 @@ function toBanner() {
     bReady = false;
     iNow--;
     if (iNow == -1) {
-      oUl.style.left = -aLi[0].offsetWidth * aLi.length + "px";
-      iNow = aLi.length-1;
+      oUl.style.left = -aLi[0].offsetWidth * 3 + "px";
+      iNow = 2;
     }
     tab();
   };
