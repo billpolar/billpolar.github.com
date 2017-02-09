@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="imges/001.ico">
+<title>Polar bill</title>
+<style>
+body{ background:#000;}
+p{color: #fff;display: none;}
+span{color:rgba(255,255,255,0); font-size:30px; font-weight:bold; opacity:0;
+	transition:0.7s all ease; text-shadow:0 0 30px rgba(255,255,255,1);
+}
+span:hover,span.active{opacity:1;text-shadow:0 0 0 rgba(255,255,255,1);}
+</style>
+<script>
+
+window.onload = function(){
+	var oP = document.getElementsByTagName("p")[0];
+	var str = oP.innerHTML;
+	
+	for(var i = 0; i < str.length; i++){
+		var oSpan = document.createElement("span");
+		oSpan.innerHTML = str[i];
+		document.body.appendChild(oSpan);
+	}
+	
+	var aSpan = document.body.children;
+	
+	var i = 0;
+	var timer = setInterval(function(){
+		
+		aSpan[i].className = "active";
+		
+		i++;
+		if(i == aSpan.length){
+			clearInterval(timer);
+		}	
+	},60); 
+
+};
+</script>
+</head>
+
+<body>
+<p>本人于2012年毕业，大学期间主要学习了平面设计、室内设计以及网页设计。毕业后主要从事过平面设计、室内设计及web前端开发工程师。目前可熟练操作HTML+CSS+JS，对HTML5+CSS3及JS中的ajax、jsonp有一定的了解，熟悉前端调试工具如firebug；对jQuery框架可熟练操作。目前离职找一个WEB前端工程师职位，希望贵公司能够考虑，提供一个平台，我将为公司竭尽所能。静候佳音，谢谢。
+tel：18516299972 waiting for your call^_^ </p>
+</body>
+</html>

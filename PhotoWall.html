@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="imges/001.ico">
+  <title>Polar bill PhotoWall</title>
+  <style>
+*{margin:0;padding:0;list-style:none;}
+#btn1{position: absolute;top: 100px;left: 42%;width: 200px;height: 36px;}
+#ul1{ position:relative;width:510px; margin:160px auto;}
+#ul1 li{float:left;width:150px; height:150px; margin:10px;border-radius: 5px;box-shadow: 6px 6px 3px #888;}
+#ul1 li img{width:150px; height:150px;border-radius: 8px;}
+</style>
+<script src="JavaScript/move.js"></script>
+<script>
+window.onload = function(){
+	var oUl = document.getElementById("ul1");
+	var aLi = oUl.children;
+	var len = aLi.length; 
+	var zIndex = 1;
+	
+	//随机换一下
+	var oBtn = document.getElementById("btn1");
+	oBtn.onclick = function(){
+		
+		aPos.sort(function(){
+			return Math.random() - 0.5;	
+		});
+		
+		for(var i = 0; i < len; i++){
+			aLi[i].index = i;
+			move(aLi[i],aPos[i]);	
+		}
+			
+	};
+	
+	//布局转换
+	var aPos = [];
+	for(var i = 0; i < len; i++){
+		aPos[i] = {left:aLi[i].offsetLeft,top:aLi[i].offsetTop};
+		aLi[i].style.left = aPos[i].left + "px";
+		aLi[i].style.top  = aPos[i].top + "px";
+	}
+	for(var i = 0; i < len; i++){
+		aLi[i].style.position = "absolute";
+		aLi[i].style.margin  = "0";
+		drag(aLi[i]);
+		aLi[i].index = i;
+	}
+	
+	
+	function drag(obj){
+		obj.onmousedown = function(ev){
+			var oEvent = ev || event;
+			var disX = oEvent.clientX - obj.offsetLeft;
+			var disY = oEvent.clientY - obj.offsetTop;
+			
+			obj.style.zIndex = zIndex++;
+			clearInterval(obj.timer);
+			
+			document.onmousemove = function(ev){
+				var oEvent = ev || event;
+				obj.style.left = oEvent.clientX - disX + "px";
+				obj.style.top  = oEvent.clientY - disY + "px";
+				
+				//清空样式
+				for(var i = 0; i < len; i++){
+					aLi[i].className = "";
+				}
+				
+				//碰撞检测
+				var oNear = findMin(obj);
+
+				if(oNear){
+					oNear.className = "box";
+				}
+			};
+			document.onmouseup = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+				obj.releaseCapture && obj.releaseCapture();
+				
+				//交换位置
+				/*
+					obj.index   ---> oNear.index
+					oNear.index ---> obj.index
+				*/
+				var oNear = findMin(obj);
+				
+				if(oNear){
+					var tmp = obj.index;
+					obj.index = oNear.index;
+					oNear.index = tmp;
+					
+					//move(obj,aPos[obj.index]);
+					move(oNear,aPos[oNear.index]);
+				}
+				move(obj,aPos[obj.index]);
+				
+			};	
+			obj.setCapture && obj.setCapture();
+			return false;
+		};
+	}
+	
+	
+	function getDis(obj1,obj2){
+		var a = obj1.offsetLeft - obj2.offsetLeft;
+		var b = obj1.offsetTop - obj2.offsetTop;
+		
+		return Math.sqrt(a*a + b*b);
+	}
+	
+	//找最短的  判断碰撞  -> 算距离 -> 比较找最短的
+	function findMin(obj){
+		var iMin = 999999;
+		var iMinIndex = -1;
+		
+		for(var i = 0; i < len; i++){
+			if(obj == aLi[i]) continue;
+			if(collTest(obj,aLi[i])){
+				//碰上 算距离
+				var dis = getDis(obj,aLi[i]);
+				//比较
+				if(iMin > dis){
+					iMin = dis;
+					iMinIndex = i;
+				}
+				
+			}
+		}
+		
+		if(iMinIndex == -1){
+			return null;
+		}
+		return aLi[iMinIndex];
+	}
+
+	//碰撞检测
+	function collTest(obj1,obj2){
+		var l1 = obj1.offsetLeft;
+		var t1 = obj1.offsetTop;
+		var r1 = l1 + obj1.offsetWidth;
+		var b1 = t1 + obj1.offsetHeight;
+		
+		var l2 = obj2.offsetLeft;
+		var t2 = obj2.offsetTop;
+		var r2 = l2 + obj2.offsetWidth;
+		var b2 = t2 + obj2.offsetHeight;
+		
+		if(r1 < l2 || b1 < t2 || l1 > r2 || t1 > b2){//没碰到
+			return false;
+		} else {//碰到
+			return true;
+		}
+	}
+	
+};
+</script>
+</head>
+
+<body>
+
+<input id="btn1" type="button" value="随机换一下"/>
+<ul id="ul1">
+	<li><img src="imges/chromeDragimgs_photowall/01.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/02.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/03.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/04.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/05.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/06.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/07.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/08.jpg" /></li>
+	<li><img src="imges/chromeDragimgs_photowall/09.jpg" /></li>
+</ul>
+</body>
+</html>

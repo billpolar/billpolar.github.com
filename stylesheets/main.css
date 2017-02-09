@@ -1,0 +1,64 @@
+body,ul,ol,p,h1,h2,h3,h4,dl,dd,form,input,textarea,select { margin:0; padding:0; font-family:Arial, Helvetica, sans-serif;}
+  li{list-style:none}
+  img{ border:none; vertical-align:top;}
+  a{ text-decoration:none;}
+  body{background: #101010;width: 100%;font-family:"Times New Roman",Georgia,Serif;}
+  #main{width: 960px;margin:0 auto;}
+
+  #header{position: relative;top: 0;left: 0; height: 80px;width: 960px;}
+  #header h1{float:left; margin-top: 16px; color: #e6e686;line-height: 60px;font-size: 40px;font-weight: normal;}
+  #header h1 span{font-size: 56px;}
+  #head_list{position: absolute;left:338px;top:36px; font-size:15px;width: 660px; overflow: hidden;}
+  #head_list li {float: left;}
+  #head_list li a{color: #fff;display: inline-block;line-height: 36px;padding:0 10px;}
+  #head_list li a:hover{color: #e6e686;background-color:#555555 ;}
+
+  #banner { width: 960px; height: 600px; overflow:hidden; position: relative; margin: 0 auto;}
+  #banner ol { position: absolute; left: 48%; bottom: 5px; z-index: 2; }
+  #banner ol li { float: left; margin-right: 6px; display: inline; cursor: pointer;width: 10px;height: 10px;border-radius: 50%;background: #fff;}
+  #banner ol li.active {width: 10px; height: 10px;border-radius: 50%;background: #ffff00;}
+
+  #banner ul { position: absolute; top: 0; left: 0; z-index: 1; }
+  #banner ul li {float: left;}
+  #banner ul img {width: 960px; height: 600px;}
+
+  #banner .prev,#banner .next {display: none; width: 45px; height: 45px; position: absolute; top: 460px; z-index: 2; cursor: pointer; }
+  
+  #banner .prev { left: 10px;background: url(../imges/banner_btn.gif) no-repeat;opacity:0.7; filter:alpha(opacity:70);}
+  #banner .next { right: 10px;background: url(../imges/banner_btn.gif) no-repeat 0 -45px;opacity:0.7; filter:alpha(opacity:70);}
+
+  #content {position: relative; width: 100%;height: 500px;background: #1b1b1b;}
+
+  #content .con_web_pic,#content .con_pic{position: absolute; width: 100%;}
+  #content .con_web_pic li,#content .con_pic li{position:relative;float: left;overflow: hidden;cursor: pointer;opacity:0.7;filter:alpha(opacity:70);}
+
+  #content .con_web_pic{top: 80px;left: 66px;height: 150px; background: url(../imges/content_web_pic.gif) no-repeat;}
+  #content .con_web_pic li{ margin-right: 76px;background: url(../imges/content_web_pic_tips.gif) no-repeat 0 0;width: 150px;height: 150px; transition:500ms all ease;}
+
+  #content .con_web_pic li:hover{background: url(../imges/content_web_pic_tips.gif) no-repeat 0 150px;}
+
+  #content .con_web_pic li a{display:inline-block; width:100%;height: 100%}
+
+
+  #content .con_pic{bottom: 60px;left: 180px;height: 140px; background: url(../imges/content_pic.gif) no-repeat;}
+  #content .con_pic li{margin-right: 312px;background: url(../imges/content_pic_tips.gif) no-repeat;width: 140px;height: 140px;transition:500ms all ease;}
+  #content .con_pic li a{display:inline-block;width:100%;height: 100%}
+  #content .con_pic li:hover{background: url(../imges/content_pic_tips.gif) no-repeat 0 150px;}
+
+  #work{position: relative; width: 100%;height: 560px;background: #000;}
+  #work h2,#contact h2,#content h2{color: #999;text-align: center;line-height: 80px;font-weight: normal;}
+  #work ul{position: absolute;left: 110px;top: 88px;width: 100%;height: 420px;}
+  #work ul li{float: left; margin-right: 72px;width:198px;height: 160px;margin-bottom: 76px;border-radius: 8px;box-shadow: 4px 4px 5px #525251;cursor: pointer;}
+  #work ul li a{display: block; width:198px;height: 160px;}
+  #work ul li h3{position: relative;height: 22px; z-index: 20; background: #555;font-size: 15px;font-family: "微软雅黑";font-weight: normal;text-align: center;color: #e6e686;border-radius: 8px;}
+  #work ul .odd{background: url(../imges/work_cat.jpg) no-repeat;overflow: hidden;transition:300ms all ease;}
+  #work ul .even{background: url(../imges/work_dog.jpg) no-repeat;overflow: hidden;transition:300ms all ease;}
+  #work ul .odd:hover{background: url(../imges/work_cat.jpg) 0 -160px no-repeat;}
+  #work ul .even:hover{background: url(../imges/work_dog.jpg) 0 -160px no-repeat;}
+
+  #contact{position: relative;width: 100%;height: 400px;background: #1b1b1b;}
+  #contact .left{position: absolute;left: 96px;top: 80px; width: 400px;height: 300px;}
+  #contact .left p,#contact .right p{color: #fff;line-height: 30px;font-size: 16px;}
+  #contact .left strong{font-size: 22px;}
+  #contact .right {position: absolute;right: 98px;top: 100px; width: 220px;height: 300px;}
+  #contact .right strong,#contact .right p{font-size: 16px;font-family: "微软雅黑";font-weight: normal;}
