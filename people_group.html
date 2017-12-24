@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="./JavaScript/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="./JavaScript/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="./JavaScript/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="./JavaScript/lib/layer/2.4/theme/default/layer.css" />
+<link rel="stylesheet" type="text/css" href="./JavaScript/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="people_group.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>人员分组</title>
+</head>
+<body>
+<div class="page-container">
+	<div class="dt-toolbar">
+		<button type="submit" class="btn btn-primary radius" id="add_main_item" name=""><i class="Hui-iconfont">&#xe600;</i> 添加分组</button>
+	</div>
+	<div class="main_wrap">
+		<div id="menu" class="menu">
+			<ul class="menu_list">
+				<li class="menu_item change_admin">
+					<span>设为管理员</span>
+				</li>
+			</ul>
+		</div>
+		<ul class="list_group col-md-12" id="admin_group">
+			<li class="col-md-4 main_item">
+				<div class="list_container">
+					<div class="list_heard">
+						<span class="list_title" ><i class="Hui-iconfont">&#xe625;</i><b class="operate_title">系统管理室(保税区)</b></span>
+						<div class="operate">
+							<span class="operate_name">操作<i class="Hui-iconfont">&#xe6d5;</i></span>
+							<ul class="operate_list">
+								<li class="operate_item add_people">
+									添加人员
+								</li>
+								<li class="operate_item change_name ">
+									修改分组名称
+								</li>
+								<li class="operate_item remove_list">
+									删除分组
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="people_container">
+						<ul class="people_list" id="admin_group-1">
+							<li class="people_item">
+								<span class="item_num">1</span>
+								<p class="people_name">张经理</p>
+								<span class="people_admin"><i class="Hui-iconfont">&#xe62d;</i></span>
+								<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>
+							</li>
+							<li class="people_item">
+								<span class="item_num">2</span>
+								<p class="people_name">张经理2</p>
+								<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>
+							</li>
+							<li class="people_item">
+								<span class="item_num">3</span>
+								<p class="people_name">张经理3</p>
+								<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+			
+			<li class="col-md-4 main_item">
+				<div class="list_container">
+					<div class="list_heard">
+						<span class="list_title" ><i class="Hui-iconfont">&#xe625;</i><b class="operate_title">系统管理室(保税区)</b></span>
+						<div class="operate">
+							<span class="operate_name">操作<i class="Hui-iconfont">&#xe6d5;</i></span>
+							<ul class="operate_list">
+								<li class="operate_item add_people">
+									添加人员
+								</li>
+								<li class="operate_item change_name ">
+									修改分组名称
+								</li>
+								<li class="operate_item remove_list">
+									删除分组
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="people_container">
+						<ul class="people_list" id="admin_group-2">
+							<li class="people_item">
+								<span class="item_num">1</span>
+								<p class="people_name">张经理4</p>
+								<span class="people_admin"><i class="Hui-iconfont">&#xe62d;</i></span>
+								<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>
+							</li>
+							<li class="people_item">
+								<span class="item_num">2</span>
+								<p class="people_name">张经理5</p>
+								<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>
+							</li>
+							<li class="people_item">
+								<span class="item_num">3</span>
+								<p class="people_name">张经理6</p>
+								<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+				
+		</ul>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="./JavaScript/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="./JavaScript/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="./JavaScript/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="./JavaScript/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="./JavaScript/static/h-ui.admin/js/sortable.js"></script>
+<!-- <script src="people_group.js"></script> -->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+	
+
+$(function(){
+
+	
+	var byId = function (id) { return document.getElementById(id); };
+
+	var timer;
+	var _thisele;
+
+	var advancedArr = [];
+	var advancedArrLength = $('.people_list').length;
+	for (var i = 0; i < advancedArrLength; i++) {
+		advancedArr.push({name: 'advanced'});
+	}
+	//初始化拖拽
+	advancedArr.forEach(function (groupOpts, i) {
+		Sortable.create(byId('admin_group-' + (i + 1)), {
+			pull: true,
+			put: true,
+			group: groupOpts,
+			animation: 150,
+			onEnd: function(evt){
+				debugger;
+				if($(evt.item).parents('.people_list').find('.people_admin').length>=2){
+					$(evt.item).find('.people_admin').remove();
+				};
+				//拖拽后排序
+				var oldItemNumArr = $(evt.from).find('.item_num');
+				oldItemNumArr.each(function(i){
+					$(this).text(parseInt(i)+1);
+				})
+				var itemNumArr = $(evt.item).parents('.people_list').find('.item_num');
+				itemNumArr.each(function(i){
+					$(this).text(parseInt(i)+1);
+				})
+			}
+		});
+		
+	});
+
+
+	//操作栏功能
+	$('.list_group').on('mouseenter','.operate_name',function(){
+
+		$(this).next().show()
+	}).on('mouseleave','.operate_name',function(){
+		clearTimeout(timer);
+		var _this = $(this)
+		timer = setTimeout(function(){
+			_this.next().css('display','none');
+		}, 800);
+	})
+	$('.list_group').on('mouseover','.operate_list',function(){
+		//$(this).show();
+		clearTimeout(timer);
+	}).on('mouseleave','.operate_list',function(){
+		
+		$(this).css('display','none');
+		
+	});
+	$('#add_main_item').on('click',function(){
+
+		layer.open({
+	      type: 1,
+	      title:'新建分组',
+	      area: ['400px', '180px'],
+	      content: '<div style="padding:20px;">分组名称: <input type="text" class="input-text radius add_main_item" /></div>',
+	      btn: ['确定', '取消'], 
+	      btnAlign:'c',
+	      shadeClose: false, //点击遮罩关闭
+	      yes: function(){
+	      	if($('.add_main_item').val().length<=0){
+	      		layer.msg('分组名称不能为空');
+	      		return;
+	      	}
+	      	var peopleListLength = $('.people_list').length+1;
+
+		    var newItem = $('<li class="col-md-4 main_item">'+
+								'<div class="list_container">'+
+									'<div class="list_heard">'+
+										'<span class="list_title" ><i class="Hui-iconfont">&#xe625;</i><b class="operate_title">'+$('.add_main_item').val()+'</b></span>'+
+										'<div class="operate">'+
+											'<span class="operate_name">操作<i class="Hui-iconfont">&#xe6d5;</i></span>'+
+											'<ul class="operate_list">'+
+												'<li class="operate_item add_people">'+
+													'添加人员'+
+												'</li>'+
+												'<li class="operate_item change_name ">'+
+													'修改分组名称'+
+												'</li>'+
+												'<li class="operate_item remove_list">'+
+													'删除分组'+
+												'</li>'+
+											'</ul>'+
+										'</div>'+
+									'</div>'+
+									'<div class="people_container">'+
+										'<ul class="people_list" id = "admin_group-'+peopleListLength+'"></ul>'+
+									'</div>\
+								</div>\
+							</li>'
+						);
+		   $('.list_group').append(newItem);
+		   advancedArr.push({name: 'advanced'});
+
+		    advancedArr.forEach(function (groupOpts, i) {
+				Sortable.create(byId('admin_group-' + peopleListLength), {
+					pull: true,
+					put: true,
+					group: groupOpts,
+					animation: 150,
+					onEnd: function(evt){/* console.log('onEnd.foo:', [evt.item, evt.from]);*/
+					
+						if($(evt.item).find('.people_admin')){
+							$(evt.item).find('.people_admin').remove();
+						};
+						
+						var oldItemNumArr = $(evt.from).find('.item_num');
+						oldItemNumArr.each(function(i){
+							$(this).text(parseInt(i)+1);
+						})
+						var newItemNumArr = $(evt.item).parents('.people_list').find('.item_num');
+						newItemNumArr.each(function(i){
+							$(this).text(parseInt(i)+1);
+						})
+					}
+				});
+			});
+
+		    layer.closeAll();
+		  },
+		  btn2: function(){
+		    layer.closeAll();
+		  }
+	    });
+	})
+	//添加人员
+	$('.list_group').on('click','.add_people',function(index){
+		var listParents = $(this).parents('.main_item');
+		var peopleItemNum = $(listParents[0]).find('.people_item').length+1;
+		layer.open({
+	      type: 1,
+	      title:'添加人员',
+	      area: ['400px', '180px'],
+	      content: '<div style="padding:20px;">人员名称:<input type="text" class="input-text radius add_people_item" /></div>',
+	      btn: ['确定', '取消'], 
+	      btnAlign:'c',
+	      shadeClose: false, //点击遮罩关闭
+	      yes: function(){
+	      	if($('.add_people_item').val().length<=0){
+	      		layer.msg('人员名称不能为空');
+	      		return;
+	      	}
+		   var newItem = $('<li class="people_item">'+
+							'<span class="item_num">'+peopleItemNum+'</span>'+
+							'<p class="people_name">'+$(".add_people_item").val()+'</p>'+
+							'<span class="item_ico_cancel"><i class="Hui-iconfont">&#xe6a6;</i></span>\
+						</li>');
+		  
+		   $(listParents[0]).find('.people_list').append(newItem);
+		    layer.closeAll();
+		  },
+		  btn2: function(){
+		    layer.closeAll();
+		  } 
+	    });
+	})
+	//修改分组名称
+	$('.list_group').on('click','.change_name',function(){
+		
+		var $Parents = $(this).parents('.main_item');
+		layer.open({
+	      type: 1,
+	      title:'修改分组名称',
+	      area: ['400px', '180px'],
+	      content: '<div style="padding:20px;">分组名称:<input type="text" class="input-text radius change_name_item" /></div>',
+	      btn: ['确定', '取消'], 
+	      btnAlign:'c',
+	      shadeClose: false, //点击遮罩关闭
+	      yes: function(){
+	      	if($('.change_name_item').val().length<=0){
+	      		layer.msg('分组名称不能为空');
+	      		return;
+	      	}
+		   $Parents.find('.operate_title').text($('.change_name_item').val());			   
+		    layer.closeAll();
+		  },
+		  btn2: function(){
+		    layer.closeAll();
+		  }      
+	    });
+	})
+	//删除一个分组
+	$('.list_group').on('click','.remove_list',function(){
+		$(this).parents('.main_item').remove();
+	})
+	//删除一条人员
+	$('.list_group').on('click','.item_ico_cancel',function(){
+		
+		var $peopleList = $(this).parents('.people_list');
+
+		$(this).parents('.people_item').remove();
+		var $peopleListNew = $peopleList.find('.people_item');
+		$peopleListNew.each(function(i){
+			var textWord = i+1;
+			$($(this).find('.item_num')[0]).text(textWord);
+		})
+		
+	})
+	//右键添加管理员
+	$('.list_group').on('contextmenu','.people_item',function(e){
+		e.preventDefault();
+		var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+	    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		_thisele = $(this);
+		$('#menu').css({
+			left: e.pageX || e.clientX + screenX+'px',
+			top: e.pageY || e.clientY + scrollY +'px',
+			display:'block'
+		});
+		
+		
+	});
+	//添加管理员
+	$('.main_wrap').on('click','.change_admin',function(){
+			
+		var peopleAdmin = $('<span class="people_admin"><i class="Hui-iconfont">&#xe62d;</i></span>');
+		_thisele.parents('.people_list').find('.people_admin').remove();
+		_thisele.find('.people_name').after(peopleAdmin);
+	})
+
+	//取消右键
+	window.onclick=function(e){
+	　　　$('#menu').css('display','none');
+	}
+
+})
+
+</script>
+</body>
+</html>

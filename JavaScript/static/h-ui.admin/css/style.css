@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* 你自己的样式 */
+.main_wrap{
+	padding: 10px 16px;
+}
+.main_item{
+	margin-top: 10px;
+}
+.list_container{
+	
+	height:400px;
+	border:1px solid #ccc;
+	padding: 0px;
+	margin-right: 10px;
+	
+}
+.list_heard{
+	width: 100%
+	height: 40px;
+	line-height: 40px;
+	background: #5a98de;
+	color: #fff;
+}
+.list_title{
+	padding-left: 10px;
+}
+.operate{
+	display: inline-block;
+	position: relative;
+	float: right;
+	right: 10px;
+}
+.operate_name{
+	cursor: pointer;
+}
+.operate_list{
+	position:absolute;
+	display:none;
+	right:-10px;
+	top:40px;
+	background:#9c9c9c;
+	width:100px;
+	height:120px;
+}
+.operate_item{
+	cursor: pointer;
+	padding-left: 6px;
+
+}
+.operate_item:hover{
+	background:#ccc;
+}
+.people_item{
+	width:97%;
+	margin: 10px auto;
+	height:30px;
+	line-height: 30px;
+	border: 1px solid #ccc;
+}
+.item_num{
+	display: inline-block;
+	background:#5a98de;
+	line-height: 26px;
+    width: 20px;
+    margin-left: 2px;
+    padding-left: 10px;
+    color: #fff;
+}
+.people_name{
+	display: inline-block;
+	padding-left: 10px;
+}
+.people_admin{
+	float:right;
+	padding-right: 10px
+}
