@@ -1,0 +1,218 @@
+.screen_1_heading,
+.screen_1_phone,
+.screen_1_img{
+	transition:all 1s;
+}
+.screen_1_heading_animate_init,
+.screen_1_img_animate_init{
+	opacity: 0;
+	transform: translate(0,100%);
+}
+.screen_1_heading_animate_done,
+.screen_1_phone_animate_done,
+.screen_1_img_animate_done{
+	opacity: 1;
+	transform: translate(0,0);
+}
+.screen_1_phone_animate_init{
+	opacity: 0;
+	transform: translate(0,-100%);
+}
+/* 第二屏 */
+.screen_2_heading,
+.screen_2_phone,
+.screen_2_subHeading{
+	transition:all 1s;
+}
+
+.screen_2_heading_animate_init{
+	opacity: 0;
+	transform: translate(0,-100%);
+
+}
+.screen_2_phone_animate_init,
+.screen_2_subHeading_animate_init{
+	opacity: 0;
+	transform: translate(0,100%);
+}
+.screen_2_heading_animate_done,
+.screen_2_phone_animate_done,
+.screen_2_subHeading_animate_done,
+.screen_2_point_i_1_animate_done,
+.screen_2_point_i_2_animate_done,
+.screen_2_point_i_3_animate_done{
+	opacity: 1;
+	transform: translate(0,0);
+}
+.screen_2_point_i_1,.screen_2_point_i_2,.screen_2_point_i_3{
+	transition:all 1s .5s;
+}
+.screen_2_point_i_1_animate_init{
+	opacity: 0;
+	transform: translate(-50%,0);
+}
+
+.screen_2_point_i_2_animate_init,
+.screen_2_point_i_3_animate_init{
+	opacity: 0;
+	transform: translate(50%,0);
+}
+
+/* 第三屏 */
+
+.screen_3_heading,
+.screen_3_phone,
+.screen_3_subHeading,
+.screen_3_features{
+	transition:all 1s;
+}
+
+.screen_3_heading_animate_init{
+	opacity: 0;
+	transform: translate(0,-100%);
+
+}
+.screen_3_features_animate_init{
+	opacity: 0;
+	transform: scale(0.5);
+}
+.screen_3_features_animate_done{
+	opacity: 1;
+	transform: scale(1);
+}
+.screen_3_phone_animate_init,
+.screen_3_subHeading_animate_init{
+	opacity: 0;
+	transform: translate(0,100%);
+}
+.screen_3_heading_animate_done,
+.screen_3_phone_animate_done,
+.screen_3_subHeading_animate_done,
+.screen_3_point_i_1_animate_done{
+	opacity: 1;
+	transform: translate(0,0);
+}
+.screen_3_features_item{
+	transition:all 1s;
+	cursor:pointer;
+}
+.screen_3_features_item:hover{
+	transform: scale(1.1);
+	border-color: #fff;
+
+}
+
+/* 第四屏 */
+.screen_4_heading,
+.screen_4_subHeading{
+	transition:all 1s;
+}
+.screen_4_subHeading_animate_init{
+	opacity: 0;
+	transform: translate(0,100%);
+}
+.screen_4_heading_animate_init{
+	opacity: 0;
+	transform: translate(0,-100%);
+
+}
+.screen_4_heading_animate_done,
+.screen_4_subHeading_animate_done{
+	opacity: 1;
+	transform: translate(0,0);
+}
+.screen_4_type_item_i_1{
+	transition:all 1s .3s;
+}
+.screen_4_type_item_i_2{
+	transition:all 1s .6s;
+}
+.screen_4_type_item_i_3{
+	transition:all 1s .9s;
+}
+.screen_4_type_item_i_4{
+	transition:all 1s 1.2s;
+}
+
+.screen_4_type_item_i_1_animate_init,
+.screen_4_type_item_i_2_animate_init,
+.screen_4_type_item_i_3_animate_init,
+.screen_4_type_item_i_4_animate_init{
+	opacity: 0;
+	transform: translate(0,100%);
+}
+.screen_4_type_item_i_1_animate_done,
+.screen_4_type_item_i_2_animate_done,
+.screen_4_type_item_i_3_animate_done,
+.screen_4_type_item_i_4_animate_done{
+	opacity: 1;
+	transform: translate(0,0);
+}
+
+/* 第五屏 */
+.screen_5_heading,
+.screen_5_subHeading,
+.screen_5_bg{
+	transition:all 1s;
+}
+.screen_5_heading_animate_init{
+	opacity: 0;
+	transform: translate(0,-100%);
+
+}
+.screen_5_bg_animate_init,
+.screen_5_subHeading_animate_init{
+	opacity: 0;
+	transform: translate(0,100%);
+}
+
+.screen_5_heading_animate_done,
+.screen_5_bg_animate_done,
+.screen_5_subHeading_animate_done{
+	opacity: 1;
+	transform: translate(0,0);
+}
+
+/* 定义帧动画 */
+@-webkit-keyframes bounce{
+	0%,100%{
+		transform: scale(0);
+	}
+	50%{
+		transform: scale(1);
+	}
+}
+/* 使用帧动画 */
+
+.screen_2_point_i_1:after{
+	content:' ';
+	display:block;
+	width: 20px;
+	height: 20px;
+	background: rgba(255,0,0,.4);
+	position: absolute;
+	top:1px;
+	right:0;
+	border-radius: 50%;
+	-webkit-animation: bounce 1s infinite;
+}
+.screen_2_point_i_2:after,
+.screen_2_point_i_3:after{
+	content:' ';
+	display:block;
+	width: 20px;
+	height: 20px;
+	background: rgba(255,0,0,.4);
+	position: absolute;
+	top:1px;
+	border-radius: 50%;
+	-webkit-animation: bounce 1s infinite;
+	left: 0;
+}
+
+
+
+
+
+
+
